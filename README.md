@@ -15,6 +15,8 @@ taksit, abonelik ve birikim hedefleri tek ekranda, ailenin tüm üyeleriyle birl
 > canlı bir sunucusu yok; şu an yerel ortamda çalışıyor. Kaynak kod özel (private) tutuluyor,
 > bu sayfa uygulamayı tanıtmak içindir. Ekran görüntülerindeki aile ve rakamlar **demo verisidir**.
 
+Proje sayfası, gizlilik politikası ve iletişim: **[yigitbuyukeren.com/aile-cuzdani](https://yigitbuyukeren.com/aile-cuzdani/)**
+
 ## Ekran görüntüleri
 
 <table>
