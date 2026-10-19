@@ -41,8 +41,7 @@ Proje sayfası, gizlilik politikası ve iletişim: **[yigitbuyukeren.com/aile-cu
 - **Birikim hedefleri:** ortak hedefler ve hedef tarihe göre aylık ayırma önerisi
 - **Kategori limitleri:** %80 ve %100'de bildirim
 - **Raporlar:** 3 / 6 / 12 aylık gelir-harcama trendi
-- **TÜİK enflasyonu:** resmî veriden, kişisel enflasyon hesabıyla
-- **Uygulama kilidi, CSV dışa aktarma, hesap silme**
+- **Uygulama kilidi, PDF dışa aktarma, hesap silme**
 - Türkçe arayüz, açık ve koyu tema
 
 ## Nasıl yapıldı?
@@ -69,8 +68,8 @@ your family.
 **Highlights:** shared family budget (up to 5 members, invite code) · recurring income ·
 instalment tracking built around how Turkish households actually pay · subscriptions and
 planned payments · shared savings goals · category limits with alerts · 3/6/12-month
-reports · official TÜİK inflation data with a personal inflation estimate · app lock ·
-CSV export · account deletion · Turkish UI with light and dark themes.
+reports · app lock ·
+PDF export · account deletion · Turkish UI with light and dark themes.
 
 **Stack:** React Native (Expo) · TypeScript (strict) · PocketBase · Python notification
 scheduler · 176 Vitest unit tests plus HTTP-level integration checks against a real
