@@ -33,11 +33,6 @@ Proje sayfası, gizlilik politikası ve iletişim: **[yigitbuyukeren.com/aile-cu
   <tr>
     <td align="center"><img src="screens/07-borclar.jpg" width="230"><br><sub><b>Borçlar</b><br>Aile içinde kim kime ne kadar borçlu</sub></td>
     <td></td>
-    <td align="center"><img src="screens/06-hesaplar.jpg" width="230"><br><sub><b>Hesaplar</b><br>Nakit, banka ve kredi kartı, kart için son ödeme günü</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="screens/07-borclar.jpg" width="230"><br><sub><b>Borçlar</b><br>Aile içinde kim kime ne kadar borçlu</sub></td>
-    <td></td>
     <td></td>
   </tr>
 </table>
