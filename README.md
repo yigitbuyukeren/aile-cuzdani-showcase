@@ -11,8 +11,8 @@
 Türk aileleri için **ücretsiz, ortak bütçe** uygulaması. Maaşını bir kez ekle; gelir, gider,
 taksit, abonelik ve birikim hedefleri tek ekranda, ailenin tüm üyeleriyle birlikte görünsün.
 
-> **Durum:** Geliştirme aşamasında. Henüz App Store / Google Play'de yayında değil ve
-> canlı bir sunucusu yok; şu an yerel ortamda çalışıyor. Kaynak kod özel (private) tutuluyor,
+> **Durum:** Geliştirme aşamasında. Henüz App Store / Google Play'de yayında değil. Arka uç
+> Türkiye'deki bir sunucuda (VPS) canlı çalışıyor; kaynak kod özel (private) tutuluyor,
 > bu sayfa uygulamayı tanıtmak içindir. Ekran görüntülerindeki aile ve rakamlar **demo verisidir**.
 
 Proje sayfası, gizlilik politikası ve iletişim: **[yigitbuyukeren.com/aile-cuzdani](https://yigitbuyukeren.com/aile-cuzdani/)**
@@ -34,14 +34,20 @@ Proje sayfası, gizlilik politikası ve iletişim: **[yigitbuyukeren.com/aile-cu
 
 ## Neler var?
 
-- **Ortak aile bütçesi:** davet koduyla 5 kişiye kadar; kim ne harcadı görünür
+- **Ortak aile bütçesi:** davet koduyla 5 kişiye kadar; kim ne harcadı görünür, çocuk rolü ile sınırlı yetki
 - **Düzenli gelir:** maaşı bir kez gir, her ay kendiliğinden eklensin
 - **Taksit takibi:** ilerleme takvimden hesaplanır, Türkiye'deki taksit alışkanlığına göre
 - **Abonelik ve planlı ödemeler:** yaklaşan ödemeler ve gecikme uyarısı
+- **Hesaplar:** nakit, banka ve kredi kartı kayıtları; kart için hesap kesim ve son ödeme günü hatırlatması
+- **Borç ve alacak, harcama bölme, yorum:** kimin kime ne kadar borçlu olduğu ve harcamalara not
+- **Fiş fotoğrafı:** isteğe bağlı, yalnızca bütçeyi görebilenlere açık
+- **Döviz ve altın:** döviz tutarlı harcama (elle kur), altın veya döviz cinsinden birikim hedefi
 - **Birikim hedefleri:** ortak hedefler ve hedef tarihe göre aylık ayırma önerisi
-- **Kategori limitleri:** %80 ve %100'de bildirim
-- **Raporlar:** 3 / 6 / 12 aylık gelir-harcama trendi
-- **Uygulama kilidi, PDF dışa aktarma, hesap silme**
+- **Limitler:** kategori limitleri ve genel aylık limit; %80 ve %100'de bildirim
+- **Raporlar:** 3 / 6 / 12 aylık gelir-harcama trendi, aylık rapor PDF olarak paylaşılır
+- **Çevrimdışı:** son veriler önbellekte okunur, yeni işlemler bağlantı gelince gönderilir
+- **Android widget ve uygulama kısayolları**
+- **Uygulama kilidi, "Tüm verilerimi indir" (PDF), hesap silme**
 - Türkçe arayüz, açık ve koyu tema
 
 ## Nasıl yapıldı?
@@ -49,8 +55,8 @@ Proje sayfası, gizlilik politikası ve iletişim: **[yigitbuyukeren.com/aile-cu
 | | |
 |---|---|
 | **İstemci** | React Native (Expo), TypeScript (strict) |
-| **Sunucu** | PocketBase; erişim kuralları ve özel rotalar sunucuda uygulanır |
-| **Test** | Vitest ile 176 birim testi, ayrıca gerçek bir PocketBase'e karşı HTTP seviyesinde yüzlerce entegrasyon kontrolü |
+| **Sunucu** | PocketBase; erişim kuralları ve özel rotalar sunucuda uygulanır. Türkiye'de tek bir VPS, Caddy ile otomatik HTTPS, gece yedeği |
+| **Test** | Vitest ile 206 birim testi, ayrıca gerçek bir PocketBase'e karşı HTTP seviyesinde 300'den fazla entegrasyon kontrolü |
 | **Bildirim** | Zamanlayıcı betik (Python), Expo push |
 
 ---
@@ -61,17 +67,19 @@ A **free, shared household budget app for Turkish families.** Add your salary on
 income, expenses, instalments, subscriptions and savings goals on one screen, together with
 your family.
 
-> **Status:** In development. It is not on the App Store or Google Play and has no hosted
-> backend yet; it currently runs locally. The source code is private and this page is a
+> **Status:** In development. It is not on the App Store or Google Play yet. The backend
+> runs live on a server (VPS) in Turkey; the source code is private and this page is a
 > showcase. The family and numbers in the screenshots are **demo data**.
 
-**Highlights:** shared family budget (up to 5 members, invite code) · recurring income ·
+**Highlights:** shared family budget (up to 5 members, invite code, child role) · recurring income ·
 instalment tracking built around how Turkish households actually pay · subscriptions and
-planned payments · shared savings goals · category limits with alerts · 3/6/12-month
-reports · app lock ·
-PDF export · account deletion · Turkish UI with light and dark themes.
+planned payments · cash, bank and card accounts with statement and due-day reminders · debts and
+expense splitting · optional receipt photos · foreign-currency entries and gold/FX savings goals ·
+shared savings goals · category limits plus an overall monthly limit with alerts · 3/6/12-month
+reports as PDF · offline cache with a queue for new entries · Android widget and app shortcuts ·
+app lock · full data export · account deletion · Turkish UI with light and dark themes.
 
 **Stack:** React Native (Expo) · TypeScript (strict) · PocketBase · Python notification
-scheduler · 176 Vitest unit tests plus HTTP-level integration checks against a real
-PocketBase.
+scheduler · 206 Vitest unit tests plus 300+ HTTP-level integration checks against a real
+PocketBase, running on a single VPS behind Caddy.
 
