@@ -1,0 +1,29 @@
+name: Tanıtım ve ürün geri bildirimi
+description: Aile Cüzdanı hakkında düşüncelerin
+title: "Geri bildirim: "
+labels: [geri-bildirim]
+body:
+  - type: markdown
+    attributes:
+      value: "Uygulama henüz mağazada değil ve kaynak kodu özel; bu depo tanıtım içindir. Gerçek aile verisi veya finansal bilgi paylaşma."
+  - type: textarea
+    attributes:
+      label: "Tanıtım sayfasında neyi anlamadın veya eksik buldun?"
+      description: ""
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: "Bir aile bütçe uygulamasında senin için en önemli özellik ne?"
+      description: ""
+    validations:
+      required: false
+  - type: dropdown
+    attributes:
+      label: "Hangi platformu kullanırsın?"
+      options:
+        - "Android"
+        - "iOS"
+        - "İkisi de"
+    validations:
+      required: false
