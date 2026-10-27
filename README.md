@@ -1,7 +1,7 @@
 <a href="https://yigitbuyukeren.com/aile-cuzdani/">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="banner-dark.jpg">
-    <img src="banner-light.jpg" width="100%" alt="Aile Cüzdanı: Türk aileleri için ücretsiz, ortak bütçe uygulaması. React Native, PocketBase, 206 birim testi, iOS ve Android.">
+    <img src="banner-light.jpg" width="100%" alt="Aile Cüzdanı: Türk aileleri için ücretsiz, ortak bütçe uygulaması. React Native, PocketBase, 206 birim testi. Geliştirmede, mağazada yayında değil.">
   </picture>
 </a>
 
@@ -10,7 +10,7 @@
 **[🌐 Proje sayfası](https://yigitbuyukeren.com/aile-cuzdani/)** &nbsp;·&nbsp; **[📸 Ekranlar](#-ekran-görüntüleri)** &nbsp;·&nbsp; **[🔒 Gizlilik](https://yigitbuyukeren.com/aile-cuzdani/gizlilik/)** &nbsp;·&nbsp; **[✉️ Destek](mailto:destek@yigitbuyukeren.com)**
 
 ![Durum](https://img.shields.io/badge/durum-geli%C5%9Ftirmede-E8480C?style=flat-square&labelColor=16150F)
-![Platform](https://img.shields.io/badge/platform-iOS%20%C2%B7%20Android-E8480C?style=flat-square&labelColor=16150F)
+![Platform](https://img.shields.io/badge/platform-Android%20denendi%20%C2%B7%20iOS%20planl%C4%B1-E8480C?style=flat-square&labelColor=16150F)
 ![Fiyat](https://img.shields.io/badge/fiyat-%C3%BCcretsiz-E8480C?style=flat-square&labelColor=16150F)
 ![Birim testi](https://img.shields.io/badge/birim%20testi-206-E8480C?style=flat-square&labelColor=16150F&logo=vitest&logoColor=FCC72B)
 ![Entegrasyon](https://img.shields.io/badge/entegrasyon%20kontrol%C3%BC-333-E8480C?style=flat-square&labelColor=16150F)
@@ -85,6 +85,19 @@ taksit, abonelik ve birikim hedefleri tek ekranda, ailenin tüm üyeleriyle birl
 | ✅ **Test** | Vitest ile 206 birim testi, ayrıca gerçek bir PocketBase'e karşı HTTP seviyesinde 333 entegrasyon kontrolü |
 | 🔔 **Bildirim** | Zamanlayıcı betik (Python), Expo push |
 
+### 🏗️ Mimari
+
+Kaynak kod özeldir; aşağısı tasarımın özetidir. Gizli anahtar, kullanıcı verisi veya sunucu yapılandırması içermez.
+
+- **İstemci (React Native / Expo, strict TypeScript):** katmanlı yapı. Ekranlar sunucuya doğrudan konuşmaz; her alan (işlemler, abonelikler, taksitler, aile, özet, dışa aktarma, bildirimler) kendi servis modülünden geçer. Bağlam sağlayıcıları: tema → güvenli alan → kimlik → mod (bireysel/aile) → aile → gezinti. İstemcideki izin kontrolleri yalnızca kullanım kolaylığıdır.
+- **Yetkilendirme:** e-posta + parola ile kimlik doğrulama, parola sıfırlama e-postayla gelen 6 haneli kodla. Asıl yetki **sunucudadır**: koleksiyon erişim kuralları, aile üyeliği ve rol (sahip, üye, çocuk) kontrolü, aile başına üye sınırı ve yoğun denemeye karşı hız sınırı sunucu tarafında uygulanır. İsteğe bağlı biyometrik uygulama kilidi.
+- **Veritabanı:** PocketBase (SQLite). Şema yalnızca sürüm kontrollü, **yalnızca eklenen** migration dosyalarıyla tanımlanır (43 migration); uygulanmış bir migration değiştirilmez. Özel kurallar ve rotalar sunucu kancalarında durur.
+- **Bildirimler:** istemci Expo bildirimleri; hatırlatmaları günlük, haftalık ve aylık zamanlayıcılar üreten ayrı bir Python betiği gönderir. Ödeme hatırlatmaları yalnızca kaydın sahibine, haftalık/aylık aile özetleri tüm üyelere gider.
+- **Çevrimdışı:** son veriler önbellekten okunur; yeni işlemler kuyruğa alınır, bağlantı gelince gönderilir.
+- **Test mimarisi (üç katman):** (1) Vitest ile 206 birim testi, tür denetimi ve lint ("0 hata, 0 uyarı" kapısı); (2) sunucu kancaları için kaynak düzeyinde kurallar testi; (3) geçici bir PocketBase örneğine karşı HTTP düzeyinde 333 entegrasyon kontrolü (yetki sınırları, rol kuralları, hız sınırı ve sunucu günlüğünde çalışma zamanı hatası taraması). Entegrasyon kontrolleri yalnızca yerel, atılabilir örneğe karşı çalışır; canlı veritabanına test verisi yazılmaz.
+
+**Doğrulama durumu:** yukarıdaki sayılar bu tanıtım güncellenirken yerelde yeniden çalıştırıldı (206 birim testi geçti, tür denetimi ve lint temiz, 333/333 entegrasyon kontrolü geçti). Uygulama Android'de bir telefona kuruldu ve temel akışlar elle denendi; yeni eklenen bazı ekranlar (ör. fiş fotoğrafı, çevrimdışı kuyruk, widget) gerçek cihazda denenmedi. iOS için tam uygulama derlemesi henüz doğrulanmadı. Mağaza yayını yok.
+
 </details>
 
 <details>
@@ -114,5 +127,9 @@ app lock · full data export · account deletion · Turkish UI with light and da
 **Stack:** React Native (Expo) · TypeScript (strict) · PocketBase · Python notification
 scheduler · 206 Vitest unit tests plus 333 HTTP-level integration checks against a real
 PocketBase, running on a single VPS behind Caddy.
+
+**Architecture in short:** layered React Native client (screens never talk to the backend directly; one service module per domain), PocketBase backend where authorization is enforced **on the server** (collection access rules, family membership and roles, per-family member limit, rate limiting), append-only versioned migrations (43), Expo push notifications driven by a separate scheduler, and a three-layer test setup: unit tests, hook-rule tests and HTTP-level integration checks against a throwaway local PocketBase. The source stays private; no keys, user data or server configuration are published here.
+
+**Verification:** the test numbers were re-run locally for this update (206 unit tests pass, type check and lint clean, 333/333 integration checks). The app was installed on an Android phone and the core flows were tried by hand; some newer screens (receipt photos, offline queue, widget) have not been tried on a real device, and the full iOS build is not verified. It is not published in any store.
 
 </details>
