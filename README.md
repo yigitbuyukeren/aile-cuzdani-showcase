@@ -1,7 +1,7 @@
 <a href="https://yigitbuyukeren.com/aile-cuzdani/">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="banner-dark.jpg">
-    <img src="banner-light.jpg" width="100%" alt="Aile Cüzdanı: Türk aileleri için ücretsiz, ortak bütçe uygulaması. React Native, PocketBase, 764 birim testi. Geliştirmede, mağazada yayında değil.">
+    <img src="banner-light.jpg" width="100%" alt="Aile Cüzdanı: Türk aileleri için ücretsiz, ortak bütçe uygulaması. React Native ve PocketBase. Geliştirmede, mağazada yayında değil.">
   </picture>
 </a>
 
@@ -12,8 +12,8 @@
 ![Durum](https://img.shields.io/badge/durum-geli%C5%9Ftirmede-E8480C?style=flat-square&labelColor=16150F)
 ![Platform](https://img.shields.io/badge/platform-Android%20denendi%20%C2%B7%20iOS%20planl%C4%B1-E8480C?style=flat-square&labelColor=16150F)
 ![Fiyat](https://img.shields.io/badge/fiyat-%C3%BCcretsiz-E8480C?style=flat-square&labelColor=16150F)
-![Birim testi](https://img.shields.io/badge/birim%20testi-764-E8480C?style=flat-square&labelColor=16150F&logo=vitest&logoColor=FCC72B)
-![Entegrasyon](https://img.shields.io/badge/entegrasyon%20kontrol%C3%BC-400-E8480C?style=flat-square&labelColor=16150F)
+![Birim testi](https://img.shields.io/badge/birim%20testi-Vitest-E8480C?style=flat-square&labelColor=16150F&logo=vitest&logoColor=FCC72B)
+![Entegrasyon](https://img.shields.io/badge/entegrasyon-PocketBase-E8480C?style=flat-square&labelColor=16150F)
 ![React Native](https://img.shields.io/badge/React%20Native-Expo-E8480C?style=flat-square&labelColor=16150F&logo=react&logoColor=61DAFB)
 ![PocketBase](https://img.shields.io/badge/PocketBase-sunucu-E8480C?style=flat-square&labelColor=16150F&logo=pocketbase&logoColor=B8DBE4)
 
@@ -84,7 +84,7 @@ taksit, abonelik ve birikim hedefleri tek ekranda, ailenin tüm üyeleriyle birl
 |---|---|
 | 📱 **İstemci** | React Native (Expo), TypeScript (strict) |
 | 🗄️ **Sunucu** | PocketBase; erişim kuralları ve özel rotalar sunucuda uygulanır. Türkiye'de tek bir VPS, Caddy ile otomatik HTTPS, gece yedeği |
-| ✅ **Test** | Vitest ile 764 birim testi, ayrıca gerçek bir PocketBase'e karşı HTTP seviyesinde 400 entegrasyon kontrolü |
+| ✅ **Test** | Vitest birim testleri ve atılabilir PocketBase üzerinde HTTP entegrasyon kontrolleri |
 | 🔔 **Bildirim** | Zamanlayıcı betik (Python), Expo push |
 
 ### 🏗️ Mimari
@@ -96,9 +96,11 @@ Kaynak kod özeldir; aşağısı tasarımın özetidir. Gizli anahtar, kullanıc
 - **Veritabanı:** PocketBase (SQLite). Şema yalnızca sürüm kontrollü, **yalnızca eklenen** migration dosyalarıyla tanımlanır (kaynak kodda 48 migration); uygulanmış bir migration değiştirilmez. Özel kurallar ve rotalar sunucu kancalarında durur.
 - **Bildirimler:** istemci Expo bildirimleri; hatırlatmaları günlük, haftalık ve aylık zamanlayıcılar üreten ayrı bir Python betiği gönderir. Ödeme hatırlatmaları yalnızca kaydın sahibine, haftalık/aylık aile özetleri tüm üyelere gider.
 - **Çevrimdışı:** son veriler önbellekten okunur; yeni işlemler kuyruğa alınır, bağlantı gelince gönderilir.
-- **Test mimarisi (üç katman):** (1) Vitest ile 764 birim testi, tür denetimi ve lint ("0 hata, 0 uyarı" kapısı); (2) sunucu kancaları için kaynak düzeyinde kurallar testi; (3) geçici bir PocketBase örneğine karşı HTTP düzeyinde 400 entegrasyon kontrolü (yetki sınırları, rol kuralları, hız sınırı ve sunucu günlüğünde çalışma zamanı hatası taraması). Entegrasyon kontrolleri yalnızca yerel, atılabilir örneğe karşı çalışır; canlı veritabanına test verisi yazılmaz.
+- **Test mimarisi (üç katman):** (1) Vitest birim testleri, tür denetimi ve lint ("0 hata, 0 uyarı" kapısı); (2) sunucu kancaları için kaynak düzeyinde kurallar testi; (3) geçici bir PocketBase örneğine karşı HTTP entegrasyon kontrolleri (yetki sınırları, rol kuralları, hız sınırı ve sunucu günlüğünde çalışma zamanı hatası taraması). Entegrasyon kontrolleri yalnızca yerel, atılabilir örneğe karşı çalışır; canlı veritabanına test verisi yazılmaz.
 
-**Doğrulama kaydı (5 Kasım 2026):** 4 Kasım proje kaydında 764 test, tür denetimi ve lint başarılı; son başarılı HTTP entegrasyon kaydı 1 Kasım’da 400 kontroldür. Kaynak kodda 48 migration bulunur. Son taksit fiyat geçmişi değişikliği için yerel HTTP kontrolleri ortam kısıtı nedeniyle tamamlanamadı; sunucuya dağıtımı da bekliyor. Bu sayılar bu tanıtım güncellemesinde yeniden çalıştırılmış değildir. Uygulama Android'de bir telefona kuruldu ve temel akışlar elle denendi; yeni eklenen bazı ekranlar (ör. fiş fotoğrafı, çevrimdışı kuyruk, widget) gerçek cihazda denenmedi. iOS için tam uygulama derlemesi henüz doğrulanmadı. Mağaza yayını yok.
+**Güncel kayıt (6 Kasım 2026):** Yerel quick kontrolü: typecheck, lint ve 41 dosyada 304 test başarılı. 5 Kasım VPS dağıtımı ve 48 özel migration doğrulaması tamamlandı; o günün raporu 414 HTTP kontrolü ve 21/21 Expo Doctor kaydeder. Bunlar bu tanıtım güncellemesinde yeniden çalıştırılmadı. 304 test, eski 764/772 sayılarıyla eşdeğer kapsam olarak değerlendirilmez.
+
+**Önceki doğrulama kaydı (5 Kasım öncesi):** 4 Kasım proje kaydında 764 test, tür denetimi ve lint başarılı; son başarılı HTTP entegrasyon kaydı 1 Kasım’da 400 kontroldür. Kaynak kodda 48 migration bulunur. Son taksit fiyat geçmişi değişikliği için yerel HTTP kontrolleri ortam kısıtı nedeniyle tamamlanamadı; sunucuya dağıtımı da bekliyor. Bu sayılar bu tanıtım güncellemesinde yeniden çalıştırılmış değildir. Uygulama Android'de bir telefona kuruldu ve temel akışlar elle denendi; yeni eklenen bazı ekranlar (ör. fiş fotoğrafı, çevrimdışı kuyruk, widget) gerçek cihazda denenmedi. iOS için tam uygulama derlemesi henüz doğrulanmadı. Mağaza yayını yok.
 
 </details>
 
@@ -127,11 +129,13 @@ reports as PDF · offline cache with a queue for new entries · Android widget a
 app lock · full data export · account deletion · Turkish UI with light and dark themes.
 
 **Stack:** React Native (Expo) · TypeScript (strict) · PocketBase · Python notification
-scheduler · 764 Vitest unit tests plus 400 HTTP-level integration checks against a real
-PocketBase, running on a single VPS behind Caddy.
+scheduler · Vitest unit tests and HTTP integration checks against a disposable
+PocketBase. The production backend runs on a single VPS behind Caddy.
 
 **Architecture in short:** layered React Native client (screens never talk to the backend directly; one service module per domain), PocketBase backend where authorization is enforced **on the server** (collection access rules, family membership and roles, per-family member limit, rate limiting), append-only versioned migrations (48 in source), Expo push notifications driven by a separate scheduler, and a three-layer test setup: unit tests, hook-rule tests and HTTP-level integration checks against a throwaway local PocketBase. The source stays private; no keys, user data or server configuration are published here.
 
-**Verification record (5 Nov 2026):** the 4 Nov project record reports 764 passing tests, clean type checking and lint; the latest successful HTTP integration record is 400 checks on 1 Nov. There are 48 migrations in source. HTTP checks for the latest installment price-history change were blocked by environment restrictions, and its backend deployment is pending. These suites were not re-run for this showcase update. The app was installed on an Android phone and the core flows were tried by hand; some newer screens (receipt photos, offline queue, widget) have not been tried on a real device, and the full iOS build is not verified. It is not published in any store.
+**Current record (6 Nov 2026):** Local quick verification passed typecheck, lint and 304 tests in 41 files. The 5 Nov VPS deployment and 48 custom migrations were verified; that report records 414 HTTP checks and Expo Doctor 21/21. These were not rerun for this showcase update. The 304-test run is not equivalent in scope to the older 764/772-test records.
+
+**Previous verification record (before 5 Nov deployment):** the 4 Nov project record reports 764 passing tests, clean type checking and lint; the latest successful HTTP integration record is 400 checks on 1 Nov. There are 48 migrations in source. HTTP checks for the latest installment price-history change were blocked by environment restrictions, and its backend deployment is pending. These suites were not re-run for this showcase update. The app was installed on an Android phone and the core flows were tried by hand; some newer screens (receipt photos, offline queue, widget) have not been tried on a real device, and the full iOS build is not verified. It is not published in any store.
 
 </details>
